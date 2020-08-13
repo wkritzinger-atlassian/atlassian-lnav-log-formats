@@ -1,0 +1,139 @@
+ {
+    "atlassian_bitbucket_log" : {
+        "title" : "Atlassian Bitbucket log format",
+        "description" : "Log format used by Atlassian Bitbucket",
+        "url" : "",
+        "regex" : {
+            "mdc" : {
+                "pattern" : "(?m)^(?<timestamp>\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2},\\d{3}) (?<alert_level>\\w+)\\s+\\[(?<thread>[ \\w\\:._=\\(\\)\\[\\]-]+)\\] (?:(?<user>[\\w_.-]+) )?(?:(?<request_id>[@*]\\w+x\\w+x\\w+x\\w+) )?(?:(?<session_id>\\w+) )?(?:(?<ip_address>\\d{1,3}(?:\\.\\d{1,3}){3}(?:,\\d{1,3}(?:\\.\\d{1,3}){3})*) )?(?:\"?(?<request>(?:GET|POST|PUT|DELETE|OPTIONS) [^ ]+ [^ ]+|SSH - [^ ]+ [^ ]+)\"? ?)? (?<class>\\w+\\.[\\w.]+) (?<body>\\S.*)$"
+            }
+        },
+        "opid-field": "request_id",
+        "module-field": "class",
+        "level-field" : "alert_level",
+        "level" : {
+            "error" : "ERROR",
+            "warning" : "WARN",
+            "debug" : "DEBUG",
+            "info" : "INFO",
+            "trace" : "TRACE"
+        },
+        "value" : {
+            "thread" : { "kind" : "string", "identifier" : true },
+            "alert_level" : { "kind" : "string" },
+            "user" : { "kind" : "string", "identifier" : true },
+            "request_id" : { "kind" : "string", "identifier" : true },
+            "session_id" : { "kind" : "string", "identifier" : true },
+            "ip_address" : { "kind" : "string", "identifier" : true },
+            "request" : { "kind" : "string" },
+            "class" : { "kind" : "string" },
+            "body" : { "kind" : "string" }
+        },
+        "sample" : [
+            {
+                "line" : "2020-07-21 15:26:19,026 ERROR [http-nio-7990-exec-81] asdfasdfasdf *1APC3V1x926x168698741x2 10.1.1.1 \"GET /projects/AAAA/repos/BBBB/raw/rest/file HTTP/1.1\" o.h.i.ExceptionMapperStandardImpl HHH000346: Error during managed flush"
+            },
+            {
+                "line" : "2020-07-21 15:30:52,815 INFO  [http-nio-7990-exec-30] *1APC3V1x930x168705816x2 10.1.1.1 \"GET /rest/api/latest/projects/AAAAA/repos/main/pull-requests/394/diff/some HTTP/1.1\" c.a.s.i.a.DefaultRememberMeService Expired remem"
+            },
+            {
+                "line" : "2020-07-21 15:35:45,095 INFO  [scm-cache-streamer]  c.a.s.i.w.filters.StreamGuardFilter The remote client has aborted the connection"
+            },
+            {
+                "line" : "2020-07-21 13:38:01,300 INFO  [http-nio-7990-exec-35] *1APC3V1x818x168504850x13 10.1.1.1 \"POST /rest/analytics/1.0/publish/bulk HTTP/1.1\" c.a.s.i.a.DefaultRememberMeService Invalid remember-me cookie detected (expired) - canceling the cookie"
+            },
+            {
+                "line" : "2020-07-21 13:54:40,795 ERROR [http-nio-7990-exec-9] asdfadsfasdf *1APC3V1x834x168536759x6 2vlpz5 10.1.1.1 \"GET /projects/AAAA/repos/BBBBB/raw/DDDDDD.md HTTP/1.1\" o.h.e.j.batch.internal.BatchingBatch HHH000315: Exception executing batch [java.sql"
+            },
+            {
+                "line" : "2020-07-21 14:24:40,658 WARN  [threadpool:thread-5] asdfasdfasdf *1APC3V1x864x168593787x3 jmslh1 10.1.1.1 \"POST /projects/AAAAA/repos/AAAAAA/pull-requests HTTP/1.1\" c.a.m.r.impl.MarkupRendererImpl com.atlassian.bitbucket.server.bitbucket-markup-rendere"
+            },
+            {
+                "line" : "2020-08-07 07:13:20,980 WARN  [git-hook-callback:thread-2] user7 @OAW25Ox433x39x0 11.1.1.1,101.1.1.1 \"POST /scm/test/test.git/git-upload-pack HTTP/1.1\" c.a.s.i.s.g.h.h.CachingPackObjectsHookHandler TEST/test[1]: Bypassing the cache"
+            },
+            {
+                "line" : "2020-08-13 10:26:37,907 DEBUG [ssh-scm-request-handler] acarlton @1QGGCWQx626x45680x0 vlumts 172.1.1.1 SSH - git-upload-pack '/stash/stash.git' c.a.s.i.s.g.p.s.CachingSshUploadPack STASH/stash[1234]: Completed git-upload-pack v1 [refs:bypass[1397ms]]"
+            },
+            {
+                "line" : "2020-08-13 00:22:46,621 DEBUG [ssh-scm-request-handler] addon_bitbucket.mirror.bdz9-9mux-wly1-uxob *11QO6W7x22x221894x0 a8ev5s 172.5.1.1 SSH - git-upload-pack '/stash/stash.git' c.a.s.i.s.g.p.ssh.GitSshScmRequest Running /usr/bin/git -c uploadpack.packobjectshook"
+            },
+            {
+                "line" : "2020-08-13 00:00:35,740 INFO  [NavLink RestCapabilitiesClient:thread-1]  c.a.p.n.c.m.c.c.RestCapabilitiesClient Failed to request capabilities from 'https://aaatlassian.com/rest/capabilities': aaaatlassian.com: Name"
+            },
+            {
+                "line" : "2020-08-13 07:06:01,057 DEBUG [sshd-SshServer[1aa226b3](port=7999)-nio2-thread-3] 1yzx8k 172.5.3.2 SSH - git-upload-pack '/stash/bitbucket-performance-environment.git' c.a.s.i.s.g.p.ssh.SshStdinHandler EOF has been signaled, with no further stdin to read"
+            }
+        ]
+    },
+    "atlassian_bitbucket_access_log": {
+        "title" : "Atlassian Bitbucket access log format",
+        "description" : "Log format used by Atlassian Bitbucket",
+        "url" : "",
+        "regex" : {
+            "mdc" : {
+                "pattern" : "(?m)^(?<ip_address>\\d{1,3}(?:\\.\\d{1,3}){3}) \\| (?<type>\\w+) \\| (?<input_output>i|o)(?<request_id>[*@]\\w+x\\w+x\\w+x\\w+) \\| (?<user>-|[\\w\\._-]+) \\| (?<timestamp>\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2},\\d{3}) \\| (?<request>(?:\"(?:GET|POST|PUT|DELETE|OPTIONS) [^ ]+ [^ ]+\"|SSH - .*?)) \\| (?:\"(?<referrer>\\S+)?\" )?\"(?<user_agent>.*?)\" \\| (?<status_code>-|\\d+) \\| (?<bytes_read>-|\\d+) \\| (?<bytes_written>-|\\d+) \\| (?<labels>.*?) \\| (?<request_time>-|\\d+) \\| (?<session_id>.*?) \\| $"
+            }
+        },
+        "opid-field": "request_id",
+        "module-field": "class",
+        "value" : {
+            "user" : { "kind" : "string", "identifier" : true },
+            "input_output" : { "kind" : "string", "identifier" : true },
+            "referrer" : { "kind" : "string" },
+            "status_code" : { "kind" : "string" },
+            "bytes_read" : { "kind" : "integer" },
+            "request_time" : { "kind" : "integer" },
+            "bytes_written" : { "kind" : "integer" },
+            "labels" : { "kind" : "string" },
+            "session_id" : { "kind" : "string", "identifier" : true },
+            "user_agent" : { "kind" : "string" },
+            "request_id" : { "kind" : "string", "identifier" : true },
+            "ip_address" : { "kind" : "string", "identifier" : true },
+            "request" : { "kind" : "string" },
+            "body" : { "kind" : "string" }
+        },
+        "sample": [
+            {
+                "line": "10.100.253.254 | https | o*1APC3V1x944x168725032x2 | srvintcont | 2020-07-21 15:44:34,778 | \"GET /scm/trrdlgaesb/main.git/info/refs HTTP/1.1\" | \"\" \"git/1.8.3.1\" | 200 | 0 | 944 | cache:miss, protocol:1, refs | 112 | - | "
+            },
+            {
+                "line": "10.100.253.254 | https | i*1APC3V1x944x168725040x2 | - | 2020-07-21 15:44:34,789 | \"GET /s/-1815753002/9e7e117/1/4.6.1/_/download/resources/com.stiltsoft.stash.graphs:modern-icons/graphs-icon.svg HTTP/1.1\" | \"https://axinic.central.inditex.grp/bitbucket/s/d41d8cd98f00b204e9800998ecf8427e-T/-1815753002/9e7e117/1/4.6.1/_/download/batch/com.stiltsoft.stash.graphs:modern-icons/com.stiltsoft.stash.graphs:modern-icons.css\" \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/81.0.4044.138 Chrome/81.0.4044.138 Safari/537.36\" | - | - | - | - | - | 1956mv2 | "
+            },
+            {
+                "line": "10.100.253.254 | https | i*1APC3V1x944x168725041x3 | - | 2020-07-21 15:44:34,790 | \"GET /s/-1815753002/9e7e117/1/1.0/_/download/resources/com.atlassian.bitbucket.server.bitbucket-webpack-INTERNAL:sidebar/icons/icon-pull-requests.svg HTTP/1.1\" | \"https://adsf.com/bitbucket/s/141a4f18b2810f5eaddab8edbb7f942d-CDN/-1815753002/9e7e117/1/df7dd582c16127d91d3d1ff64f1870d8/_/download/contextbatch/css/bitbucket.page.repository.fileContent,bitbucket.feature.files.fileHandlers,bitbucket.layout.files,bitbucket.layout.branch,bitbucket.layout.repository,bitbucket.layout.base,atl.general,bitbucket.layout.entity,-_super/batch.css\" \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/81.0.4044.138 Chrome/81.0.4044.138 Safari/537.36\" | - | - | - | - | - | 1956mv2 | "
+            },
+            {
+                "line" : "10.100.253.254 | https | o*1APC3V1x944x168725032x2 | srvintcont | 2020-07-21 15:44:34,778 | \"GET /scm/trrdlgaesb/main.git/info/refs HTTP/1.1\" | \"\" \"git/1.8.3.1\" | 200 | 0 | 944 | cache:miss, protocol:1, refs | 112 | - | "
+            },
+            {
+                "line" : "10.110.52.26 | ssh | i*1APC3V1x697x168284849x10 | d114c7e79acfc6d5 | 2020-07-21 11:37:47,474 | SSH - git-upload-pack '/aaaaaa/main.git' | \"SSH-2.0-SSHD-CORE-1.7.0\" | - | - | - | - | - | c24jfr | "
+            }
+        ]
+    },
+    "atlassian_bitbucket_profiler_log": {
+        "title" : "Atlassian Bitbucket profiler log format",
+        "description" : "Log format used by Atlassian Bitbucket",
+        "url" : "",
+        "regex" : {
+            "mdc" : {
+                "pattern" : "(?m)^(?<timestamp>\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2},\\d{3}) \\| (?<thread>[ \\w\\:._=\\(\\)\\[\\]-]+) \\| (?<request_id>[*@]\\w+x\\w+x\\w+x\\w+|-) \\| (?<user>-|[\\w\\._-]+) \\| (?<session_id>\\S+)\\s*(?<body>.*)"
+            }
+        },
+        "opid-field": "request_id",
+        "module-field": "class",
+        "value" : {
+            "user" : { "kind" : "string", "identifier" : true },
+            "thread" : { "kind" : "string", "identifier" : true },
+            "request_id" : { "kind" : "string", "identifier" : true },
+            "user" : { "kind" : "string", "identifier" : true },
+            "session_id" : { "kind" : "string", "identifier" : true },
+            "body" : { "kind" : "string" }
+        },
+        "sample": [
+            {
+                "line": "2020-08-13 03:26:14,222 | http-nio-7990-exec-7 | *15DACNLx206x3554x1 | admin | -\n[383.2ms] - \"POST /rest/api/1.0/projects/TEST/repos/test/pull-requests/1813/merge HTTP/1.1\"\n [7.0ms] - Authentication org.springframework.security.authentication.AuthenticationProvider.authenticate(Authentication)\n  [1.8ms] - attemptAuthentication - com.atlassian.bitbucket.server.bitbucket-crowd-sso:crowdSsoAuthHandler"
+            }
+        ]
+    }
+
+}
