@@ -1,10 +1,24 @@
 #!/usr/bin/env bash
 
+usage() {
+    echo "Usage: $0 host:file [...host:file]" >&2
+    if [[ -n "$1" ]]; then
+        echo "   Error: $1"
+    fi
+    exit 1
+}
+if [ $# -le 0 ]; then
+    usage
+fi
+
 ARGS=()
 
 set -euo pipefail
 
 while [ $# -gt 0 ]; do
+    if [[ "$1" != *:* ]]; then
+        usage "Unable to parse argument: $1"
+    fi
     ARGS+=("$1")
     shift
 done
